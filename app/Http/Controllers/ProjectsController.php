@@ -31,7 +31,8 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        //
+        $status = ProjectStatus::all();
+        return view('project.create',['status' => $status]);
     }
 
     /**
@@ -42,7 +43,24 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'project_name'          => 'required',
+            'project_description'   => 'required',
+            'start_date'            => 'required',
+            'end_date'              => 'required',
+            'project_status'        => 'required'
+        ]);
+    
+        Projects::create([
+            'project_name'          => $request->project_name,
+            'project_description'   => $request->project_description,
+            'start_date'            => $request->start_date,
+            'end_date'              => $request->end_date,
+            'project_status_id'     => $request->project_status,
+        ]);
+     
+        return redirect()->route('projects.index')
+                        ->with('success','Project created successfully.');
     }
 
     /**

@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Project</h1>
@@ -11,6 +10,11 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
    @if(count($projects) > 0)
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
